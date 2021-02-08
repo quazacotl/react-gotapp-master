@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '../itemList/itemList';
-import CharDetails from '../charDetails/charDetails';
+import CharDetails, {Field} from '../charDetails/charDetails';
 import ErrorMessage from "../error/errorMessage";
 import GotService from "../../services/gotServices";
 import RowBlock from "../rowBlock/rowBlock";
@@ -39,8 +39,8 @@ export default class CharacterPage extends React.Component {
 
         const charDetails = (
             <CharDetails charId={this.state.selectedChar}>
-                {/*<Field field='gender' label='Gender'/>*/}
-                {/*<Field field='born' label='Born'/>*/}
+                <Field field='gender' label='Gender'/>
+                <Field field='born' label='Born'/>
             </CharDetails>
         )
 

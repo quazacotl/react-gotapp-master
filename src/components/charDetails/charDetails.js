@@ -20,41 +20,17 @@ const StyledSpan = styled.span`
        
 `
 
-const View = ({char}) => {
-    const {name, gender, born, died, culture} = char;
-    return (
-        <>
-            <h4>{name}</h4>
-            <ul className="list-group list-group-flush">
-                <li className="list-group-item d-flex justify-content-between">
-                    <span className="term">gender</span>
-                    <span>{gender}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between">
-                    <span className="term">Born</span>
-                    <span>{born}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between">
-                    <span className="term">Died</span>
-                    <span>{died}</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between">
-                    <span className="term">Culture</span>
-                    <span>{culture}</span>
-                </li>
-            </ul>
-        </>
-    )
-};
 
-const Field = ({item, field, label}) => {
+const Field = ({char, field, label}) => {
     return (
         <li className="list-group-item d-flex justify-content-between">
             <span className="term">{label}</span>
-            <span>{item[field]}</span>
+            <span>{char[field]}</span>
         </li>
     )
 };
+
+export {Field};
 
 export default class CharDetails extends Component {
 
@@ -100,11 +76,19 @@ export default class CharDetails extends Component {
 
         if (!this.state.char) return <StyledSpan>Select any character</StyledSpan>
 
-        const content =  this.state.loading ? <Spinner/> : <View char={this.state.char}/>
+        if (this.state.loading) return <Spinner/>
+
+        const {char} = this.state;
+        const {name} = char;
 
         return (
             <StyledCharDetails className="rounded">
-                {content}
+                <h4>{name}</h4>
+                <ul className="list-group list-group-flush">
+                    {React.Children.map(this.props.children, (child) => {
+                        return React.cloneElement(child, {char})
+                    })}
+                </ul>
             </StyledCharDetails>
         );
     }
