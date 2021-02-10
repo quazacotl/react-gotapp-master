@@ -1,16 +1,16 @@
 import React from 'react';
 import ItemList from '../itemList/itemList';
-import CharDetails, {Field} from '../charDetails/charDetails';
+import ItemDetails, {Field} from '../itemDetails/itemDetails';
 import ErrorMessage from "../error/errorMessage";
 import GotService from "../../services/gotServices";
 import RowBlock from "../rowBlock/rowBlock";
 
 
-export default class CharacterPage extends React.Component {
+export default class HousesPage extends React.Component {
     gotService = new GotService();
 
     state = {
-        selectedChar: null,
+        selectedHouse: null,
         error: false
     }
 
@@ -20,11 +20,10 @@ export default class CharacterPage extends React.Component {
 
     onItemSelected = (id) => {
         this.setState({
-            selectedChar: id
+            selectedHouse: id
         })
+
     }
-
-
 
     render() {
         if (this.state.error) return ErrorMessage;
@@ -32,20 +31,22 @@ export default class CharacterPage extends React.Component {
         const itemList = (
             <ItemList
                 onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllCharacters}
-                renderItem={({name, gender}) => `${name}, ${gender}`}
+                getData={this.gotService.getAllHouses}
+                renderItem={({name}) => name}
             />
         )
 
-        const charDetails = (
-            <CharDetails charId={this.state.selectedChar}>
-                <Field field='gender' label='Gender'/>
-                <Field field='born' label='Born'/>
-            </CharDetails>
+        const itemDetails = (
+            <ItemDetails
+                itemId={this.state.selectedHouse}
+                gotItem={this.gotService.getHouse}>
+                <Field field='region' label='Region'/>
+                <Field field='coatOfArms' label='Coat of arms'/>
+            </ItemDetails>
         )
 
         return (
-            <RowBlock left={itemList} right={charDetails}/>
+            <RowBlock left={itemList} right={itemDetails}/>
         )
     }
 }

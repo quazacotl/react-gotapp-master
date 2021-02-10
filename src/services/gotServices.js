@@ -58,7 +58,7 @@ export default class GotService {
             name: book.name,
             numberOfPages: book.numberOfPages || 'N/A',
             publisher: book.publisher || 'N/A',
-            releases: book.releases || 'N/A',
+            released: book.released || 'N/A',
             url: book.url,
             id: book.url.match(/(\d+)$/)[0]
 
@@ -69,7 +69,7 @@ export default class GotService {
         return {
             name: house.name,
             region: house.region || 'N/A',
-            currentLord: house.currentLord || 'N/A',
+            coatOfArms: house.coatOfArms || 'N/A',
             url: house.url,
             id: house.url.match(/(\d+)$/)[0]
         }

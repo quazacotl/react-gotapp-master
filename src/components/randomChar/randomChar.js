@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Spinner from "../spinner/spinner";
 import GotService from "../../services/gotServices";
 import ErrorMessage from "../error/errorMessage";
+import PropTypes from 'prop-types';
 
 const StyledRandomBlock = styled.div`
     background-color: #fff;
@@ -17,6 +18,7 @@ const StyledRandomBlock = styled.div`
         }
 `
 
+
 export default class RandomChar extends Component {
 
     gotService = new GotService();
@@ -27,7 +29,7 @@ export default class RandomChar extends Component {
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 4000);
+        this.timerId = setInterval(this.updateChar, this.props.interval);
     }
 
     componentWillUnmount() {
@@ -71,6 +73,14 @@ export default class RandomChar extends Component {
             </StyledRandomBlock>
         );
     }
+}
+
+RandomChar.defaultProps = {
+    interval: 5000
+}
+
+RandomChar.propTypes = {
+    interval: PropTypes.number
 }
 
 
